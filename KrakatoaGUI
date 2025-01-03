@@ -1,0 +1,71 @@
+local ScreenGui = Instance.new("ScreenGui")
+local pntButton = Instance.new("TextButton")
+local skyboxButton = Instance.new("TextButton")
+local soundscreamButton = Instance.new("TextButton")
+
+ScreenGui.Name = "krakatoaGUI"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+pntButton.Name = "pntButton"
+pntButton.Parent = ScreenGui
+pntButton.BackgroundColor3 = Color3.new(1, 1, 1)
+pntButton.Position = UDim2.new(0, 0, 0, 0)
+pntButton.Size = UDim2.new(0, 200, 0, 50)
+pntButton.Text = "Pintar Mapa"
+
+skyboxButton.Name = "skyboxButton"
+skyboxButton.Parent = ScreenGui
+skyboxButton.BackgroundColor3 = Color3.new(1, 1, 1)
+skyboxButton.Position = UDim2.new(0, 0, 0, 60)
+skyboxButton.Size = UDim2.new(0, 200, 0, 50)
+skyboxButton.Text = "Mudar Skybox"
+
+soundscreamButton.Name = "soundscreamButton"
+soundscreamButton.Parent = ScreenGui
+soundscreamButton.BackgroundColor3 = Color3.new(1, 1, 1)
+soundscreamButton.Position = UDim2.new(0, 0, 0, 120)
+soundscreamButton.Size = UDim2.new(0, 200, 0, 50)
+soundscreamButton.Text = "Emitir Som"
+
+local function paintMap(imageId)
+    for _, part in pairs(workspace:GetDescendants()) do
+        if part:IsA("BasePart") then
+            local decal = Instance.new("Decal")
+            decal.Texture = "rbxassetid://" .. imageId
+            decal.Parent = part
+        end
+    end
+end
+
+local function changeSkybox(imageId)
+    local sky = Instance.new("Sky")
+    sky.SkyboxBk = "rbxassetid://" .. imageId
+    sky.SkyboxDn = "rbxassetid://" .. imageId
+    sky.SkyboxFt = "rbxassetid://" .. imageId
+    sky.SkyboxLf = "rbxassetid://" .. imageId
+    sky.SkyboxRt = "rbxassetid://" .. imageId
+    sky.SkyboxUp = "rbxassetid://" .. imageId
+    sky.Parent = game.Lighting
+end
+
+local function playSound()
+    local sound = Instance.new("Sound")
+    sound.SoundId = "/rbxassetid:/3200130016" -- ID do som "you are an idiot HAHAHAHAHA"
+    sound.Volume = 1
+    sound.Parent = game.Workspace
+    sound:Play()
+end
+
+pntButton.MouseButton1Click:Connect(function()
+    local imageId = "75681896199287" -- Substitua pelo ID da imagem desejada
+    paintMap(imageId)
+end)
+
+skyboxButton.MouseButton1Click:Connect(function()
+    local imageId = "75681896199287" -- Substitua pelo ID da imagem desejada
+    changeSkybox(imageId)
+end)
+
+soundscreamButton.MouseButton1Click:Connect(function()
+    playSound()
+end)
